@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from django.core.validators import MaxValueValidator, MinValueValidator
 from car.models import Car
 
 
@@ -13,19 +12,27 @@ class CarSerializer(serializers.Serializer):
         required=False,
         allow_blank=True,
         allow_null=True,
-        style={'base_template': 'textarea.html'}
+        style={"base_template": "textarea.html"}
     )
 
     def create(self, validated_data):
         return Car.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.manufacturer = validated_data.get('manufacturer', instance.manufacturer)
-        instance.model = validated_data.get('model', instance.model)
-        instance.horse_power = validated_data.get('horse_power', instance.horse_powers)
-        instance.is_broken = validated_data.get('is_broken', instance.is_broken)
-        instance.problem_description = validated_data.get('problem_description', instance.problem_description)
+        instance.manufacturer = validated_data.get(
+            "manufacturer", instance.manufacturer
+        )
+        instance.model = validated_data.get(
+            "model", instance.model
+        )
+        instance.horse_power = validated_data.get(
+            "horse_power", instance.horse_powers
+        )
+        instance.is_broken = validated_data.get(
+            "is_broken", instance.is_broken
+        )
+        instance.problem_description = validated_data.get(
+            "problem_description", instance.problem_description
+        )
         instance.save()
         return instance
-
-
